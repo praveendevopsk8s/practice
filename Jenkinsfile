@@ -2,12 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone the repo') {
-            steps {
-                echo 'Cloning the repo'
-                git 'https://github.com/praveendevopsk8s/practice.git'
-            }
-        }
+
         stage('Building') {
             steps {
                 echo 'Building steps'
