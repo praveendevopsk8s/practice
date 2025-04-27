@@ -5,7 +5,7 @@ pipeline {
         stage('Clone the repo') {
             steps {
                 echo 'Cloning the repo'
-                git 'https://github.com/praveendevopsk8s/practice.git'
+                
             }
         }
         stage('Building') {
