@@ -5,17 +5,13 @@ pipeline {
         stage('Clone the repo') {
             steps {
                 echo 'Cloning the repo'
-                git branch: 'main', url: 'https://github.com/praveendevopsk8s/practice.git'
+                git 'https://github.com/praveendevopsk8s/practice.git'
             }
         }
         stage('Building') {
             steps {
                 echo 'Building steps'
-                sh '''
-                    bash -c "python3 -m venv venv"
-                    bash -c "source venv/bin/activate"
-                    bash -c "pip install -r requirements.txt"
-                    '''
+                sh('bash ./jenkinsscript.sh')
                 }
             }
         stage('Test') {
