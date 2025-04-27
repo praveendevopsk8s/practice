@@ -5,7 +5,7 @@ pipeline {
         stage('Clone the repo') {
             steps {
                 echo 'Cloning the repo...'
-                git branch: 'main', url: 'https://github.com/praveendevopsk8s/SmartFlaskAPP.git'
+                
             }
         }
 
