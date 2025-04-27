@@ -19,7 +19,7 @@ pipeline {
             steps {
                 echo "Running Unit Tests"
                 sh '''
-                    source myenv/bin/activate
+                    
                     pytest --cov=main utests --junitxml=./xmlReport/output.xml
                     python -m coverage xml
                 '''
