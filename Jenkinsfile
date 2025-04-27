@@ -20,6 +20,7 @@ pipeline {
                 echo "Running Unit Tests"
                 sh '''
                     python3 -m venv myenv
+                    export PYTHONPATH=$PYTHONPATH:$(pwd)
                     pytest --cov=main utests --junitxml=./xmlReport/output.xml
                     python -m coverage xml
                 '''
