@@ -1,23 +1,43 @@
 pipeline {
     agent any
-
     stages {
-
-        stage('Building') {
+        stage('Checkout Code') {
             steps {
-                echo 'Building steps'
+                echo "Checkout"
+                sh 'ls -l'
+            }
+        }
+
+        stage('Prepare Environment') {
+            steps {
+                echo "Prepare Environment"
                 sh('bash ./jenkinsscript.sh')
-                }
             }
-        stage('Test') {
-            steps {
-                echo 'Testing Stage'
-                 sh '''
-            python3 main.py  # Run the app (replace with your app's entry point)
-        '''
-                }
-            }
-            
-        }        
-    }
+        }
 
+        stage('Run Unit Tests') {
+            steps {
+                echo "Running Unit Tests"
+                sh '''
+                    source myenv/bin/activate
+                    pytest --cov=main utests --junitxml=./xmlReport/output.xml
+                    python -m coverage xml
+                '''
+            }
+        }
+
+        stage('Publish Junit report') {
+            steps {
+                echo "Publish Junit Report"
+                junit skipMarkingBuildUnstable: true, testResults: 'xmlReport/output.xml'
+            }
+        }
+
+        stage('Publish Code Coverage') {
+            steps {
+                echo "Publish Code Coverage"
+                cobertura coberturaReportFile: 'coverage.xml'
+            }
+        }
+    }
+}
