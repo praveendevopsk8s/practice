@@ -40,5 +40,11 @@ pipeline {
                 cobertura coberturaReportFile: 'coverage.xml'
             }
         }
+        stage('Test') {
+            steps {
+                echo 'Testing Stage'
+                 sh '''
+            python3 main.py  # Run the app (replace with your app's entry point)
+        '''        
     }
 }
