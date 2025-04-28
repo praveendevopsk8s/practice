@@ -1,3 +1,4 @@
+def container
  pipeline {
     agent any
 	environment {
@@ -50,9 +51,21 @@
 				echo 'Docker Building Stage'
 				script {
 					def img = "${env.JOB_NAME}:${env.BUILD_ID}"
-					docker.build(img).run('-d -p 5010:5000')
+					container = docker.build(img).run('-d -p 5010:5000')
         }
     }
-}		
+}
+		stage('Stop the containers') {
+			steps {
+			echo 'Stop the containers'
+				script {
+					if (container) {
+						container.stop()
+						}					
+				
+				}
+			}
+		}
     }
 }
+
